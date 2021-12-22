@@ -5,6 +5,9 @@ import org.jnetpcap.packet.PcapPacket;
 
 import java.util.List;
 
+/**
+ * 用于把packet存为文件
+ */
 public class PacketDumper {
 
 	//单例模式

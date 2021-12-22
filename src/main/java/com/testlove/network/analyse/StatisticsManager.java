@@ -3,6 +3,9 @@ package com.testlove.network.analyse;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 具体的管理类,每个协议解析类向这个类注册自己
+ */
 public class StatisticsManager {
 
 	private static StatisticsManager sm = new StatisticsManager();

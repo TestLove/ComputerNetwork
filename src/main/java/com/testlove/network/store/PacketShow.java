@@ -15,7 +15,7 @@ import java.util.concurrent.BlockingQueue;
  * @author TestLove
  * @version 1.0
  * @date 2021/12/19 21:30
- * @Description: null
+ * @Description: 用于展示packet
  */
 public class PacketShow implements Runnable{
     private List<PcapPacket> packets; // 缓存收到的数据包

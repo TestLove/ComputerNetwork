@@ -1,7 +1,10 @@
 package com.testlove.network.analyse;
 
 
-
+/**
+ * @Author testlove
+ * 统计的基类
+ */
 public abstract class Statistics {
 	
 	private StatisticsManager sm;

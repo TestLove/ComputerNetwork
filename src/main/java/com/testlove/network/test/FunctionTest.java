@@ -1,14 +1,11 @@
 package com.testlove.network.test;
 
-import com.testlove.network.CaptureCore;
-import com.testlove.network.InterfaceSelect;
 import com.testlove.network.store.CatchPacket;
 import com.testlove.network.store.PacketShow;
 import com.testlove.network.store.PacketTransport;
 import com.testlove.network.thread.ThreadManager;
 import org.jnetpcap.packet.PcapPacket;
 
-import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 
 /**
@@ -31,6 +28,8 @@ public class FunctionTest {
         showPacketThread.setName("showPacketThread");
         ThreadManager.newInstance().addThread("showPacketThread", showPacketThread);
         showPacketThread.start();
+
+        CatchPacket.newInstance().getPcap().dumpOpen("E:\\");
 
 
     }

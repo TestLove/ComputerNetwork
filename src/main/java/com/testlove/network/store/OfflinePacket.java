@@ -50,26 +50,15 @@ public class OfflinePacket implements Runnable{
 		 * 创建用来接收数据包handler
 		 **************************************************************************/
 		int i=0;
-		PcapPacketHandler<String> jpacketHandler = new PcapPacketHandler<String>() {
+		PcapPacketHandler<String> jpacketHandler = (packet, user) -> {
+			if(null!=packetQueue) {
+				packetQueue.offer(packet);
+			}
 
-			public void nextPacket(PcapPacket packet, String user) {
-
-//				System.out.printf("Received at %s caplen=%-4d len=%-4d %s\n",
-//						new Date(packet.getCaptureHeader().timestampInMillis()), packet.getCaptureHeader().caplen(), // Length
-//																														// actually
-//																														// captured
-//						packet.getCaptureHeader().wirelen(), // Original length
-//						user // User supplied object
-//				);
-				if(null!=packetQueue) {
-					packetQueue.offer(packet);
-				}
-				
-				if(index!=-1) {
-					if(i == index) {
-						choosedPacket = packet;
-						return ;
-					}
+			if(index!=-1) {
+				if(i == index) {
+					choosedPacket = packet;
+					return ;
 				}
 			}
 		};

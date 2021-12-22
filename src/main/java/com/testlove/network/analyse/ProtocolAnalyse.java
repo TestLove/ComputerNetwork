@@ -49,9 +49,9 @@ public class ProtocolAnalyse extends Statistics{
 	private String tipInfo;
 
 	private EthAnalyse ethAna = EthAnalyse.newInstance();
-	private ArpAnalyse arpAna = ArpAnalyse.newInstance();
-	private IcmpAnalyse icmpAna = IcmpAnalyse.newInstance();
-	private Ipv6Analyse ipv6Ana = Ipv6Analyse.newInstance();
+//	private ArpAnalyse arpAna = ArpAnalyse.newInstance();
+//	private IcmpAnalyse icmpAna = IcmpAnalyse.newInstance();
+//	private Ipv6Analyse ipv6Ana = Ipv6Analyse.newInstance();
 	private TcpAnalyse tcpAna = TcpAnalyse.newInstance();
 	private UdpAnalyse udpAna = UdpAnalyse.newInstance();
 	private HttpAnalyse httpAna = HttpAnalyse.newInstance();
@@ -97,16 +97,6 @@ public class ProtocolAnalyse extends Statistics{
 			put(ethSizeMap, src + "-->" + dest,packet.getPacketWirelen());
 
 			protocolName = ethAna.analyse(eth);
-
-			//判断ARP
-			if(packet.hasHeader(arp)) {
-				tipInfo = arpAna.analyse(arp);
-			}
-		}
-		
-		//判断ICMP
-		if(packet.hasHeader(icmp)) {
-			tipInfo = icmpAna.analyse(icmp);
 		}
 		
 		if (packet.hasHeader(ip4)) {
@@ -129,22 +119,7 @@ public class ProtocolAnalyse extends Statistics{
 				tipInfo = httpAna.analyse(http,packet);
 			}
 		}
-		if (packet.hasHeader(ip6)) {
-			//protocolName = "IPv6";
-			src = Tool.parseFullIPv6ToAbbreviation(FormatUtils.ip(ip6.source()));
-			dest = Tool.parseFullIPv6ToAbbreviation(FormatUtils.ip(ip6.destination()));
-			put(ip6CountMap, src + "-->" + dest, 1);
-			put(ip6SizeMap, src + "-->" + dest, packet.getPacketWirelen());
 
-			protocolName = ipv6Ana.analyse(ip6);
-
-			analyseTransportLayer(packet);
-
-			if (packet.hasHeader(http)) {
-				tipInfo = httpAna.analyse(http,packet);
-			}
-			
-		}
 
 		//解析器无法解析时使用默认解析器
 		if( null == protocolName || protocolName.equals("") ) {

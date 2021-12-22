@@ -7,6 +7,7 @@ import org.jnetpcap.PcapIf;
 import org.jnetpcap.packet.PcapPacket;
 import org.jnetpcap.packet.PcapPacketHandler;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
@@ -26,6 +27,8 @@ public class CatchPacket implements Runnable {
 	private List<PcapIf> alldevs = new LinkedList<PcapIf>();
 
 	private Pcap pcap = null;
+
+	private List<PcapPacket> packets = new ArrayList<>();
 
 	private int deviceIndex = 1; // 正在监听的设备序号
 
@@ -97,6 +100,7 @@ public class CatchPacket implements Runnable {
 			public void nextPacket(PcapPacket packet, String user) {
 
 				if (mode == CATCHMODE) {
+					//将抓到的包放入
 					packetQueue.offer(packet);
 					if (suspend) {
 						synchronized (control) {
@@ -111,6 +115,7 @@ public class CatchPacket implements Runnable {
 						}
 					}
 				}else if(mode == MONITORMODE){
+					packets.add(packet);
 					ptlAna.analyse(packet);
 				}
 			}

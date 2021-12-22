@@ -5,6 +5,9 @@ import org.jnetpcap.packet.PcapPacket;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
+/**
+ * 获取数据包(实时抓取或者文件中读取)并放入阻塞队列
+ */
 public class PacketTransport {
 
 	private static PacketTransport pkts = new PacketTransport();
@@ -14,7 +17,8 @@ public class PacketTransport {
 	private BlockingQueue<PcapPacket> packetQueue = new LinkedBlockingQueue<PcapPacket>();
 	private int index=-1;
 
-	private PacketTransport() {}
+	private PacketTransport() {
+	}
 
 	public static PacketTransport newInstance() {
 		return pkts;
@@ -28,7 +32,7 @@ public class PacketTransport {
 		catchPacket.setPacketQueue(packetQueue);
 		catchPacket.startCatch(index);
 	}
-	
+	//从文件路径读取pcap文件
 	public void startOfflinePacket(String filepath) {
 		offlinePacket = OfflinePacket.newInstance();
 		packetQueue.clear();

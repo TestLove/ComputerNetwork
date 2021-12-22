@@ -6,7 +6,7 @@ import org.jnetpcap.PcapBpfProgram;
 //包抓取过滤器
 
 /**
- * @author 没事啦
+ * @author
  *
  */
 public class FilterPreCatch {
